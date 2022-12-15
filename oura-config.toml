@@ -1,0 +1,15 @@
+[source]
+type = "N2N"
+address = ["Tcp", "node-mainnet-1-35-3-0.nodes.ftr-nodes-v0.svc.cluster.local:3000"]
+magic = "mainnet"
+
+[[filters]]
+type = "Selection"
+
+[filters.check]
+predicate = "variant_in"
+argument = ["StakeDelegation"]
+
+[sink]
+type = "Webhook"
+url = "http://localhost:8000/delegation"
