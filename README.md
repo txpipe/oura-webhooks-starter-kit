@@ -56,7 +56,7 @@ url = "http://localhost:8000/delegation"
 
 For the `source.address` field we are going to connect with one of the nodes available in [Demeter.run](https://demeter.run). In this case we are connecting against a Node running in the `mainnet` but Nodes are available in other networks depending your use-case. 
 
-<img src="assets/node-selection.png" alt="node selection">
+<img src="assets/nodes-list.png" alt="nodes list">
 
 You can select the Node of your preference and from the detail screen use the `Private DNS Name` and `Node-to-Node-Port` values for setting up the `address` field in the Oura config. 
 
@@ -76,13 +76,15 @@ oura daemon --config oura-config.toml
 
 That should be enough to have Oura running inside our Workspace.
 
-### Building and Running our Server
+### Building and Running the Application Server
 
-Our server is a simple NodeJs/Express application listening on `PORT 8000` with only one `POST` endpoint at `/delegation`. 
+The Application Server is a simple NodeJs/Express application listening on `PORT 8000` with only one `POST` endpoint at `/delegation`. 
 
 This endpoint will receive the information from the Webhook whenever a `StakeDelegation` event is processed by Oura; will filter based on the `pool_hash` of the event, and will send a message to Discord with the data available. 
 
 For sending the message to Discord you can check the [Discord developer portal](https://discordjs.guide/popular-topics/webhooks.html#what-is-a-webhook) for how to generate a Webhook. 
+
+<img src="assets/discord-webhook.png" alt="webhook">
 
 Once you have your Webhook generated you will get a link with the following structure:
 
@@ -156,7 +158,7 @@ app.post("/delegation", async (req, res) => {
 
 In case you want to extend the functionality, this is the information available in the `StakeDelegation` event:
 
-```json
+```bash
 {
   context: {
     block_hash: 'f739edf316103e4a952e7cffe5e12d3146efc0b4f9e9f31421588d8ece7f1829',
